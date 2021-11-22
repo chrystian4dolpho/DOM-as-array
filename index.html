@@ -143,8 +143,6 @@
 
           //recebo os trs dentro de tbody
           let tableRows = document.querySelectorAll('table tbody > tr');
-          //transformo o nodeList em array
-          tableRows = [...tableRows];
 
           //console.log(tableRows);
 
@@ -163,7 +161,7 @@
           })
 
           //pegando apenas as notas e convertendo para numeros
-          cellsValues = cellsValues.slice(1, 5).map(function(value){
+          cellsValues = cellsValues.slice(1, coluns.length - 1).map(function(value){
             return parseFloat(value);
           });
 
