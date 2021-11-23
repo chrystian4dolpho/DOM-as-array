@@ -21,7 +21,7 @@
        <div class="container">
 
         <div class="hero center card-panel materialize-red darken-4 white-text z-depth-3">
-          <h1 class="materialize-red-text text-lighten-3"> Curso Javascript Completo</h1>
+          <h1 class="materialize-red-text text-lighten-3"> Curso Javascript</h1>
           
         </div>
         <h2 class="materialize-red-text text-lighten-2 underlined">Dados de Alunos</h2>
@@ -39,97 +39,9 @@
           </tr>
         </thead>
 
-        <tbody>
-            <tr>
-              <td>Daniel</td>
-              <td>10</td>
-              <td>3</td>
-              <td>7.5</td>
-              <td>3</td>
-              <td></td>
-            </tr>
-          
-            <tr>
-              <td>Maria</td>
-              <td>10</td>
-              <td>9</td>
-              <td>3</td>
-              <td>9.5</td>
-              <td></td>
-            </tr>
-          
-            <tr>
-              <td>João</td>
-              <td>10</td>
-              <td>4.5</td>
-              <td>1</td>
-              <td>3.5</td>
-              <td></td>
-            </tr>
-          
-            <tr>
-              <td>Joana</td>
-              <td>1</td>
-              <td>3</td>
-              <td>9</td>
-              <td>1.5</td>
-              <td></td>
-            </tr>
-          
-            <tr>
-              <td>José</td>
-              <td>10</td>
-              <td>4.5</td>
-              <td>7</td>
-              <td>3</td>
-              <td></td>
-            </tr>
-          
-            <tr>
-              <td>Arnaldo</td>
-              <td>10</td>
-              <td>4.5</td>
-              <td>7</td>
-              <td>3</td>
-              <td></td>
-            </tr>
-          
-            <tr>
-              <td>Lucas</td>
-              <td>4.5</td>
-              <td>9</td>
-              <td>8</td>
-              <td>3</td>
-              <td></td>
-            </tr>
-          
-            <tr>
-              <td>Luana</td>
-              <td>3</td>
-              <td>7</td>
-              <td>9</td>
-              <td>3</td>
-              <td></td>
-            </tr>
-          
-            <tr>
-              <td>Beatriz</td>
-              <td>10</td>
-              <td>4</td>
-              <td>7</td>
-              <td>9</td>
-              <td></td>
-            </tr>
-          
-            <tr>
-              <td>Sergio</td>
-              <td>4.5</td>
-              <td>9.5</td>
-              <td>10</td>
-              <td>2</td>
-              <td></td>
-            </tr>
-          </tbody>
+        <tbody class="tabela">
+           <!-- GERAR/PREENCHER TABELA DINÂMICAMENTE A PARTIR DE UMA BASE DE DADOS -->
+        </tbody>
       </table>
       </div>
 
@@ -139,38 +51,49 @@
       
       <script>
 
-        (function(){
+            //ARRAY DE OBJETOS/DADOS
+            const alunos = [
+                { nome: "Daniel", n1: 10, n2: 3, n3: 7.5, n4: 3 },
+                { nome: "Maria", n1: 10, n2: 9, n3: 3, n4: 9.5 },
+                { nome: "João", n1: 10, n2: 4.5, n3: 1, n4: 3.5 },
+                { nome: "Joana", n1: 1, n2: 3, n3: 9, n4: 1.5 },
+                { nome: "José", n1: 10, n2: 4.5, n3: 7, n4: 3 },
+                { nome: "Arnaldo", n1: 10, n2: 4.5, n3: 7, n4: 3 },
+                { nome: "Lucas", n1: 4.5, n2: 9, n3: 8, n4: 3 },
+                { nome: "Luana", n1: 3, n2: 7, n3: 9, n4: 3 },
+                { nome: "Beatriz", n1: 10, n2: 4, n3: 7, n4: 9 },
+                { nome: "Sergio", n1: 4.5, n2: 9.5, n3: 10, n4: 2 }
+            ];
 
-          //recebo os trs dentro de tbody
-          let tableRows = document.querySelectorAll('table tbody > tr');
+            //RECUPERA TBODY (QUE SERÁ PREENCHIDO)
+            const table = document.querySelector('.tabela');
+            
+            alunos.forEach(function(aluno){
+                //CADA ALUNO RECUPERADO DO ARRAY CRIA UMA LINHA NA TABELA
+                const linha = document.createElement('tr');  
+                table.appendChild(linha);
 
-          //console.log(tableRows);
+                //recuperando ultima linha 
+                let linhaAtual = table.lastChild;
 
-          //itero as celulas de cada linha da tabela
-          tableRows.forEach((row) => {
+                for(dado in aluno){
+                    // ITERANDO PELOS DADOS DE CADA ALUNO E ADICIONANDO OS DADOS AS CELULAS DE 
+                    // CADA LINHA
+                    
+                    const celula = document.createElement('td');
+                    linhaAtual.appendChild(celula);
+                    let dadosAluno = `${aluno[dado]}`;
 
-          let coluns = [...row.children];
-          
-          //console.log(row);
+                    linhaAtual.lastChild.textContent = dadosAluno;
+                };
 
-          let cellsValues = [];
+                //calculando media e inserindo na tabela
+                let media = document.createElement('td');
+                media.textContent = average(aluno.n1, aluno.n2, aluno.n3, aluno.n4);
 
-          //pegando os valores da celulas e jogando em um array
-          coluns.forEach((cell) => {
-            cellsValues.push(cell.innerHTML);
-          })
+                linhaAtual.appendChild(media);
 
-          //pegando apenas as notas e convertendo para numeros
-          cellsValues = cellsValues.slice(1, coluns.length - 1).map(function(value){
-            return parseFloat(value);
-          });
-
-          //calculando média e inserindo na tabela
-          coluns[coluns.length - 1].textContent = average(...cellsValues);
-          
-        })
-
-        })()
+            });
         
       </script>
 
