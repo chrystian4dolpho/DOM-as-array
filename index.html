@@ -69,6 +69,10 @@
             const table = document.querySelector('.tabela');
             
             alunos.forEach(function(aluno){
+
+                //calculando media dos alunos
+                aluno.media = average(aluno.n1, aluno.n2, aluno.n3, aluno.n4);
+
                 //CADA ALUNO RECUPERADO DO ARRAY CRIA UMA LINHA NA TABELA
                 const linha = document.createElement('tr');  
                 table.appendChild(linha);
@@ -77,21 +81,14 @@
                 let linhaAtual = table.lastChild;
 
                 for(dado in aluno){
-                    // ITERANDO PELOS DADOS DE CADA ALUNO E ADICIONANDO OS DADOS AS CELULAS DE 
+                    // ITERANDO DADOS DE CADA ALUNO E ADICIONANDO OS DADOS AS CELULAS DE 
                     // CADA LINHA
                     
                     const celula = document.createElement('td');
                     linhaAtual.appendChild(celula);
-                    let dadosAluno = `${aluno[dado]}`;
 
-                    linhaAtual.lastChild.textContent = dadosAluno;
+                    linhaAtual.lastChild.textContent = `${aluno[dado]}`;
                 };
-
-                //calculando media e inserindo na tabela
-                let media = document.createElement('td');
-                media.textContent = average(aluno.n1, aluno.n2, aluno.n3, aluno.n4);
-
-                linhaAtual.appendChild(media);
 
             });
         
